@@ -129,9 +129,13 @@ static void jump_to_previous_directory()
     }
 
     file = fopen(tag_file_path, "w");
+    /* debug me! */
+    fputs("a", stderr);
     dt_entry_list_write_to_file(&list, file);
+    fputs("b", stderr);
     dt_entry_list_destruct(&list);
     fclose(file);
+
     printf("%s\n%s", OPERATION_SWITCH_DIRECTORY, next_path);
 }
 
@@ -303,6 +307,10 @@ static void test_main()
     test_strip_tilde();
 }
 
+/*
+#define TEST
+*/
+
 int main(int argc, char* argv[]) {
 #ifdef TEST
     test_main();
@@ -310,11 +318,12 @@ int main(int argc, char* argv[]) {
     dt_entry_list_test();
     PRINT_TEST_RESULTS;
 #else
-      if (argc == 1)
-          jump_to_previous_directory();
-      else if (argc == 2)
+    if (argc == 1) {
+        jump_to_previous_directory();
+    }
+    else if (argc == 2)
           process_single_flag(argv[1]);
-      else if (argc == 3)
+    else if (argc == 3)
           update_previous_directory(argv[1], argv[2]);
 
 #endif

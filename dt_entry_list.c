@@ -136,8 +136,6 @@ int dt_entry_list_read_from_file(dt_entry_list* list, FILE* file)
         strncpy(arg_tag, tag, tag_str_len);
         strncpy(arg_dir, dir, dir_str_len);
 
-
-
         dt_entry_list_append_entry(list, arg_tag, arg_dir);
     }
 
@@ -158,6 +156,8 @@ int dt_entry_list_write_to_file(const dt_entry_list* list, FILE* file)
                      separator,
                      dt_entry_get_tag(e),
                      dt_entry_get_dir(e));
+
+        
 
         if (ret < 0) return EXIT_FAILURE;
 
