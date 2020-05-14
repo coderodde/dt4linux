@@ -147,21 +147,26 @@ int dt_entry_list_write_to_file(const dt_entry_list* list, FILE* file)
     dt_entry* e;
     size_t i;
     int ret;
-    char* separator = "";
 
     for (i = 0; i != dt_entry_list_size(list); i++) {
-        e = dt_entry_list_get(list, i);
+         e = dt_entry_list_get(list, i);
+
         ret = fprintf(file,
-                     "%s%s %s",
-                     separator,
-                     dt_entry_get_tag(e),
-                     dt_entry_get_dir(e));
+                      "%s %s",
+                      dt_entry_get_tag(e),
+                      dt_entry_get_dir(e));
 
-        
+        if (ret < 0) {
+            return EXIT_FAILURE;
+        }
 
-        if (ret < 0) return EXIT_FAILURE;
+        if (i < dt_entry_list_size(list) - 1) {
+            ret = fprintf(file, "\n");
+        }
 
-        separator = "\n";
+        if (ret < 0) {
+            return EXIT_FAILURE;
+        }
     }
 
     return EXIT_SUCCESS;

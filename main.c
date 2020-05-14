@@ -129,10 +129,7 @@ static void jump_to_previous_directory()
     }
 
     file = fopen(tag_file_path, "w");
-    /* debug me! */
-    fputs("a", stderr);
     dt_entry_list_write_to_file(&list, file);
-    fputs("b", stderr);
     dt_entry_list_destruct(&list);
     fclose(file);
 
